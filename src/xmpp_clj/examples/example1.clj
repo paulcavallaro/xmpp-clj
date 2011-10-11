@@ -19,8 +19,8 @@
 
 
 ;; Don't have to reload the bot every change
-(defn reload-helper [message] 
-  (try 
+(defn reload-helper [message]
+  (try
    (handle-message message)
    (catch Exception e (println e))))
 

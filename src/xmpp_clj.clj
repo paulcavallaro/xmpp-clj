@@ -1,8 +1,8 @@
 (ns xmpp-clj
-  (:import [org.jivesoftware.smack 
-	    Chat 
-	    ChatManager 
-	    ConnectionConfiguration 
+  (:import [org.jivesoftware.smack
+	    Chat
+	    ChatManager
+	    ConnectionConfiguration
 	    MessageListener
 	    SASLAuthentication
 	    XMPPConnection
@@ -12,19 +12,19 @@
 	   [org.jivesoftware.smack.filter MessageTypeFilter]
 	   [org.jivesoftware.smack.util StringUtils]))
 
-(defonce *available-presence* (Presence. Presence$Type/available))
+(defonce ^:dynamic *available-presence* (Presence. Presence$Type/available))
 
-(defonce *chat-message-type-filter* (MessageTypeFilter. Message$Type/chat))
+(defonce ^:dynamic *chat-message-type-filter* (MessageTypeFilter. Message$Type/chat))
 
 (defn packet-listener [conn processor]
-     (proxy 
-	 [PacketListener] 
+     (proxy
+	 [PacketListener]
 	 []
        (processPacket [packet] (processor conn packet))))
 
 
 (defn mapify-error [e]
-  (if (nil? e) 
+  (if (nil? e)
     nil
     {:code (.getCode e) :message (.getMessage e)}))
 
@@ -73,9 +73,9 @@
 
 (defn start-bot
   "Defines and starts an instant messaging bot that will respond to incoming
-   messages. start-bot takes 2 parameters, the first is a map representing 
+   messages. start-bot takes 2 parameters, the first is a map representing
    the data needed to make a connection to the jabber server:
-   
+
    connnect-info example:
    {:host \"talk.google.com\"
     :domain \"gmail.com\"
@@ -114,6 +114,3 @@
 
 (defn stop-bot [#^XMPPConnection conn]
   (.disconnect conn))
-
-
-
